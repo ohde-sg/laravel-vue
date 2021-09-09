@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+var LiveReloadPlugin = require('webpack-livereload-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,7 +12,15 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix
+  .webpackConfig({
+    plugins: [new LiveReloadPlugin({ port: 35729 })]
+  })
+  .options({
+    hmrOptions: {
+      host: '0.0.0.0',
+      port: 3030
+    }
+  })
+  .js('resources/js/app.js', 'public/js')
+  .vue();

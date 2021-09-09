@@ -7,6 +7,14 @@ services:
       - ./webapp:/usr/share/nginx/html
     ports:
       - 8080:80
+      - 35729:35729
+      - 3030:3030
+    environment:
+      APP_SANCTUM_STATEFUL_DOMAINS: 127.0.0.1:8080
+      APP_DB_HOST: db
+      APP_DB_DATABASE: laravel
+      APP_DB_USERNAME: root
+      APP_DB_PASSWORD: password
   db:
     build: ./db
     environment:
